@@ -44,7 +44,7 @@ pipeline {
             sh(script: """
               chown jenkins:jenkins ./tests/test_sample.py
               chmod 777 ./tests/test_sample.py
-              python3 ./tests/test_sample.py
+              pytest ./tests/test_sample.py
             """)
          }
       }
