@@ -23,7 +23,7 @@ pipeline {
       stage('Start Test App') {
          steps {
             sh(script: """
-              docker compose up
+              docker-compose up -d
               ./scripts/test_container.sh
             """)
 
@@ -47,7 +47,7 @@ pipeline {
       stage('Stop Tests') {
          steps {
             sh(script: """
-              docker compose down
+              docker-compose down
             """)
          }
       }
