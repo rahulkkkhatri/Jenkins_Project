@@ -25,6 +25,7 @@ pipeline {
             sh(script: """
               docker-compose up -d
               chown jenkins:jenkins ./scripts/test_container.sh
+              chmod 777 ./scripts/test_container.sh
               ./scripts/test_container.sh
             """)
 
@@ -42,6 +43,7 @@ pipeline {
          steps {
             sh(script: """
               chown jenkins:jenkins ./tests/test_sample.py
+              chmod 777 ./tests/test_sample.py
               pytest ./tests/test_sample.py
             """)
          }
