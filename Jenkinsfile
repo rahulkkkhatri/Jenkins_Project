@@ -24,6 +24,7 @@ pipeline {
          steps {
             sh(script: """
               docker-compose up -d
+              chown jenkins:jenkins ./scripts/test_container.sh
               ./scripts/test_container.sh
             """)
 
@@ -40,7 +41,7 @@ pipeline {
       stage('Run Test') {
          steps {
             sh(script: """
-              chmod +RX jenkins:jenkins ./tests/test_sample.py
+              chown jenkins:jenkins ./tests/test_sample.py
               pytest ./tests/test_sample.py
             """)
          }
