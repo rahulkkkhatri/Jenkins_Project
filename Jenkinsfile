@@ -40,6 +40,7 @@ pipeline {
       stage('Run Test') {
          steps {
             sh(script: """
+              chmod +RX jenkins:jenkins ./tests/test_sample.py
               pytest ./tests/test_sample.py
             """)
          }
