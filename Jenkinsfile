@@ -7,7 +7,7 @@ pipeline {
             echo "$GIT_BRANCH"
          }
       }
-       stage('Docker Build') {
+      stage('Docker Build') {
          steps {
             sh(script: 'docker images -a')
             sh(script: """
@@ -20,6 +20,38 @@ pipeline {
             """)
          }
       }
+      stage('Start Test App') {
+         steps {
+            sh(script: """
+              docker compose up -d
+              ./scripts/test_container.sh
+            """)
+
+         }
+         post {
+            success {
+               echo "App started Successfully"
+            }
+            failure {
+               echo "App failed to start"
+            }
+         }
+      }
+      stage('Run Test') {
+         steps {
+            sh(script: """
+              pytest ./tests/test_sample.py
+            """)
+         }
+      }
+      stage('Stop Tests') {
+         steps {
+            sh(script: """
+              docker compose down
+            """)
+         }
+      }
+      
    }
 }
      
