@@ -63,7 +63,7 @@ pipeline {
          }
       }
 
-      stage('Push Image to DockerHub'){
+      /*stage('Push Image to DockerHub'){
          steps {
             echo "Workspace is $WORKSPACE"
             dir("$WORKSPACE/azure-vote") {
@@ -74,6 +74,13 @@ pipeline {
                   }
                }
             }
+         }
+      }*/
+      stage('Push Image to DockerHub'){
+         steps {
+            echo "Workspace is $WORKSPACE",
+            sh "docker login registry.example.com -u docker0rahul -p $DOCKERHUB_CREDENTIALS"
+            echo "logged in"
          }
       }
       
