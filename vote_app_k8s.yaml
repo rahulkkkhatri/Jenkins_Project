@@ -17,6 +17,8 @@ spec:
         ports:
         - containerPort: 6379
           name: redis
+  selector:
+    app: azure-vote-back
 ---
 apiVersion: v1
 kind: Service
@@ -39,6 +41,8 @@ spec:
       maxSurge: 1
       maxUnavailable: 1
   minReadySeconds: 5 
+  selector:
+    app: azure-vote-front
   template:
     metadata:
       labels:
