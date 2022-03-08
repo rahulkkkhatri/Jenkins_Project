@@ -23,13 +23,6 @@ pipeline {
             
             """)
          }
-         post {
-            steps {
-                office365ConnectorSend webhookUrl: "",
-                message: 'Code is deployed',
-                status: 'Success'            
-            }
-         }
       }
       stage('Start Test App') {
          steps {
