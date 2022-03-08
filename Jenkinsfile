@@ -1,5 +1,8 @@
 pipeline {
    agent any
+   environment {     
+    DOCKERHUB_CREDENTIALS= credentials('DockerHub')     
+   }
    options {
         office365ConnectorWebhooks([
             [name: "Office 365", url: "https://lntinfotech.webhook.office.com/webhookb2/6b347fc6-ad12-4379-a6f3-584ca6974c75@02aa9fc1-18bc-4798-a020-e01c854dd434/JenkinsCI/86179d88b7484e40927eb8781bdbd0fa/8ff106e7-829e-4ab0-be75-636bb50c366e", notifyBackToNormal: true, notifyFailure: true, notifyRepeatedFailure: true, notifySuccess: true, notifyAborted: true]
@@ -60,6 +63,19 @@ pipeline {
          }
       }
 
+      stage {
+         steps {
+            echo "Workspace is $WORKSPACE"
+            dir("$WORKSPACE/azure-vote") {
+               script {
+                  docker.withRegistry('https://index.docker.io/v1/', 'DockerHub') {
+                     def image = docker.build(jenkins_project/jenkins-course:"${BUILD_NUMBER}")
+                     image.push()
+                  }
+               }
+            }
+         }
+      }
       
    }
 }
