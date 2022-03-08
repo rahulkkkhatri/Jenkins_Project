@@ -2,6 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: azure-vote-back
+  labels:
+    app: azure-vote-back
 spec:
   replicas: 1
   template:
@@ -34,6 +36,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: azure-vote-front
+  labels:
+    app: azure-vote-front
 spec:
   replicas: 1
   strategy:
