@@ -5,7 +5,7 @@ pipeline {
    }
    options {
         office365ConnectorWebhooks([
-            [name: "Office 365", url: "${URL_WEBHOOK}", notifyBackToNormal: true, notifyFailure: true, notifyRepeatedFailure: true, notifySuccess: true, notifyAborted: true]
+            [name: "Office 365", url: "${webhook_url}", notifyBackToNormal: true, notifyFailure: true, notifyRepeatedFailure: true, notifySuccess: true, notifyAborted: true]
         ])
    }
    stages {
@@ -28,12 +28,12 @@ pipeline {
          }
          post {
             success {
-                office365ConnectorSend webhookUrl: "${URL_WEBHOOK}",
+                office365ConnectorSend webhookUrl: "${webhook_url}",
                 message: 'Image Build Success!!',
                 status: 'Success'            
             }
             failure {
-                office365ConnectorSend webhookUrl: "${URL_WEBHOOK}",
+                office365ConnectorSend webhookUrl: "${webhook_url}",
                 message: 'Image Build Failed!!',
                 status: 'Failure'            
             }
