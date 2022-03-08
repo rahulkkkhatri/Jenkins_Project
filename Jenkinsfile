@@ -1,9 +1,5 @@
 pipeline {
    agent any
-   environment {
-       webhook_url = "https://lntinfotech.webhook.office.com/webhookb2/6b347fc6-ad12-4379-a6f3-584ca6974c75@02aa9fc1-18bc-4798-a020-e01c854dd434/JenkinsCI/86179d88b7484e40927eb8781bdbd0fa/8ff106e7-829e-4ab0-be75-636bb50c366e"                               //can be used in whole pipeline
-       result = ""
-   }
    options {
         office365ConnectorWebhooks([
             [name: "Office 365", url: "https://lntinfotech.webhook.office.com/webhookb2/6b347fc6-ad12-4379-a6f3-584ca6974c75@02aa9fc1-18bc-4798-a020-e01c854dd434/JenkinsCI/86179d88b7484e40927eb8781bdbd0fa/8ff106e7-829e-4ab0-be75-636bb50c366e", notifyBackToNormal: true, notifyFailure: true, notifyRepeatedFailure: true, notifySuccess: true, notifyAborted: true]
@@ -28,11 +24,10 @@ pipeline {
             """)
          }
          post {
-            success {
-                result: "${result} ${STAGE_NAME}: Image Build Success!!"            
-            }
-            failure {
-                result: "${result} ${STAGE_NAME}: Image Build Failed!!"
+            steps {
+                office365ConnectorSend webhookUrl: "",
+                message: 'Code is deployed',
+                status: 'Success'            
             }
          }
       }
@@ -48,10 +43,10 @@ pipeline {
          }
          post {
             success {
-                result: "${result} '\n'${STAGE_NAME}: App started successfully!!"
+               echo "App started Successfully"
             }
             failure {
-                result: "${result} '\n'${STAGE_NAME}: App start Failed"
+               echo "App failed to start"
             }
          }
       }
@@ -72,18 +67,6 @@ pipeline {
          }
       }
       
-   }
-   post{
-      success {
-         office365ConnectorSend webhookUrl: "${webhook_url}",
-                message: "${result}",
-                status: 'Success'
-      }
-      failure {
-         office365ConnectorSend webhookUrl: "${webhook_url}",
-                result: "${result}",
-                status: 'Failed'
-      }
    }
 }
      
