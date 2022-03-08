@@ -45,8 +45,6 @@ spec:
       maxSurge: 1
       maxUnavailable: 1
   minReadySeconds: 5 
-  selector:
-    app: azure-vote-front
   template:
     metadata:
       labels:
@@ -67,6 +65,8 @@ spec:
         env:
         - name: REDIS
           value: "azure-vote-back"
+  selector:
+    app: azure-vote-front
 ---
 apiVersion: v1
 kind: Service
