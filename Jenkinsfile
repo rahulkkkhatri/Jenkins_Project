@@ -20,7 +20,7 @@ pipeline {
             sh(script: """
                cd azure-vote/
                docker images -a
-               docker build -t jenkins-pipeline .
+               docker build -t jenkins_project .
                docker images -a
                cd ..
             
@@ -80,7 +80,8 @@ pipeline {
          steps {
             echo "Workspace is $WORKSPACE"
             sh "docker login -u docker0rahul -p $DOCKERHUB_CREDENTIALS"
-            echo "logged in"
+            sh "docker push docker0rahul/jenkins_project:$BUILD_NUMBER"
+            sh "docker logout"
          }
       }
       
