@@ -20,7 +20,7 @@ pipeline {
             sh(script: """
                cd azure-vote/
                docker images -a
-               docker build -t docker0rahul/jenkins_project .
+               docker build -t docker0rahul/jenkins_project:latest .
                docker images -a
                cd ..
             
