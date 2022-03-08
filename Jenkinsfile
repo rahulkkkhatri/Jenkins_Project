@@ -62,26 +62,17 @@ pipeline {
             """)
          }
       }
-
-      /*stage('Push Image to DockerHub'){
-         steps {
-            echo "Workspace is $WORKSPACE"
-            dir("$WORKSPACE/azure-vote") {
-               script {
-                  docker.withRegistry('https://index.docker.io/v1/', 'DockerHub') {
-                     def image = docker.build('docker0rahul/jenkins_project:latest')
-                     image.push()
-                  }
-               }
-            }
-         }
-      }*/
       stage('Push Image to DockerHub'){
          steps {
             echo "Workspace is $WORKSPACE"
             sh "docker login -u docker0rahul -p $DOCKERHUB_CREDENTIALS"
             sh "docker push docker0rahul/jenkins_project:$BUILD_NUMBER"
             sh "docker logout"
+         }
+      }
+      stage('Trivy Vulnerability Test') {
+         steps {
+            sh "trivy image docker0rahul/jenkins_project:$BUILD_NUMBER"
          }
       }
       
