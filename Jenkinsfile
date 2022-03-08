@@ -29,14 +29,10 @@ pipeline {
          }
          post {
             success {
-                office365ConnectorSend webhookUrl: "${webhook_url}",
-                result: "${result} ${STAGE_NAME}: Image Build Success!!",
-                status: 'Success'            
+                result: "${result} ${STAGE_NAME}: Image Build Success!!"            
             }
             failure {
-                office365ConnectorSend webhookUrl: "${webhook_url}",
-                result: "${result} ${STAGE_NAME}: Image Build Failed!!",
-                status: 'Failure'            
+                result: "${result} ${STAGE_NAME}: Image Build Failed!!"
             }
          }
       }
@@ -52,14 +48,10 @@ pipeline {
          }
          post {
             success {
-                office365ConnectorSend webhookUrl: "${webhook_url}",
-                result: "${result} '\n'${STAGE_NAME}: App started successfully!!",
-                status: 'Success'            
+                result: "${result} '\n'${STAGE_NAME}: App started successfully!!"
             }
             failure {
-                office365ConnectorSend webhookUrl: "${webhook_url}",
-                result: "${result} '\n'${STAGE_NAME}: App start Failed",
-                status: 'Failure'            
+                result: "${result} '\n'${STAGE_NAME}: App start Failed"
             }
          }
       }
