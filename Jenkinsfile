@@ -75,6 +75,7 @@ pipeline {
          parallel {
             stage('Run Anchore') {
                steps {
+                  echo "Run Anchore"
                   /*sh "echo 'docker0rahul/jenkins_project:$BUILD_NUMBER' > anchore_images"
                   anchore bailOnFail: false, bailOnPluginFail: false, name: 'anchore_images'*/
                }
