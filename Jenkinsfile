@@ -70,12 +70,22 @@ pipeline {
             sh "docker logout"
          }
       }
-      stage('Trivy Vulnerability Test') {
-         steps {
-            sh "trivy image docker0rahul/jenkins_project:$BUILD_NUMBER"
+      
+      stage('Container Scanning') {
+         parallel {
+            stage('Run Anchore') {
+               steps {
+                  sh "echo 'docker0rahul/jenkins_project:$BUILD_NUMBER' > anchore_images"
+                  anchore bailOnFail: false, bailOnPluginFail: false, name: 'anchore_images'
+               }
+            }
+            stage('Run Trivy') {
+               steps {
+                  sh "trivy image docker0rahul/jenkins_project:$BUILD_NUMBER"
+               }
+            }
          }
       }
-      
    }
 }
      
