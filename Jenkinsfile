@@ -75,13 +75,13 @@ pipeline {
          parallel {
             stage('Run Anchore') {
                steps {
-                  sh "echo 'docker0rahul/jenkins_project:$BUILD_NUMBER' > anchore_images"
-                  anchore bailOnFail: false, bailOnPluginFail: false, name: 'anchore_images'
+                  /*sh "echo 'docker0rahul/jenkins_project:$BUILD_NUMBER' > anchore_images"
+                  anchore bailOnFail: false, bailOnPluginFail: false, name: 'anchore_images'*/
                }
             }
             stage('Run Trivy') {
                steps {
-                  sh "trivy image docker0rahul/jenkins_project:$BUILD_NUMBER"
+                  sh "trivy image docker0rahul/jenkins_project:$BUILD_NUMBER > trivy_report"
                }
             }
          }
