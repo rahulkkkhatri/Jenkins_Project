@@ -91,7 +91,6 @@ pipeline {
       stage('Deploy to k8s cluster') {
          steps {
             sh "kubectl apply -f vote_app_k8s.yaml --kubeconfig kubeconfig"
-            sh "kubectl set image deployment azure-vote-front azure-vote-front=docker0rahul/jenkins_project:$BUILD_NUMBER"
          }
       }
    }
