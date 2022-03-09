@@ -55,7 +55,7 @@ spec:
         "beta.kubernetes.io/os": linux
       containers:
       - name: azure-vote-front
-        image: "docker0rahul/jenkins_project:$(BUILD_NUMBER)"
+        image: docker0rahul/jenkins_project:%TAG%
         ports:
         - containerPort: 80
         resources:
