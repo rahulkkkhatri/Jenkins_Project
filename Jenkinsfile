@@ -90,8 +90,8 @@ pipeline {
 
       stage('Deploy to k8s cluster') {
          steps {
-            sh "sed s/%TAG%/$BUILD_NUMBER/g vote_app_k8s.yaml > vote_app_k8s.yaml" 
-            sh "kubectl apply -f vote_app_k8s.yaml --kubeconfig kubeconfig"
+            sh "sed 's/%TAG%/$BUILD_NUMBER/g' vote_app_k8s.yaml > vote_app_new.yaml" 
+            sh "kubectl apply -f vote_app_new.yaml --kubeconfig kubeconfig"
          }
       }
    }
