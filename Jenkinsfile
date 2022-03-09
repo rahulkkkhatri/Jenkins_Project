@@ -76,8 +76,8 @@ pipeline {
             stage('Run Anchore') {
                steps {
                   echo "Run Anchore"
-                  /*sh "echo 'docker0rahul/jenkins_project:$BUILD_NUMBER' > anchore_images"
-                  anchore bailOnFail: false, bailOnPluginFail: false, name: 'anchore_images'*/
+                  sh "echo 'docker0rahul/jenkins_project:$BUILD_NUMBER' > anchore_images"
+                  anchore bailOnFail: false, bailOnPluginFail: false, name: 'anchore_images'
                }
             }
             stage('Run Trivy') {
@@ -88,11 +88,11 @@ pipeline {
          }
       }
 
-      stage('Deploy to k8s cluster') {
+      /*stage('Deploy to k8s cluster') {
          steps {
             sh "kubectl apply -f vote_app_k8s.yaml --kubeconfig kubeconfig "
          }
-      }
+      }*/
    }
 }
      
