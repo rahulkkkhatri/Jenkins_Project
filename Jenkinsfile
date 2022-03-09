@@ -88,11 +88,11 @@ pipeline {
          }
       }
 
-      /*stage('Deploy to k8s cluster') {
+      stage('Deploy to k8s cluster') {
          steps {
             sh "kubectl apply -f vote_app_k8s.yaml --kubeconfig kubeconfig "
          }
-      }*/
+      }
    }
 }
      

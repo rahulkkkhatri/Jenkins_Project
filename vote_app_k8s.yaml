@@ -11,8 +11,8 @@ spec:
       labels:
         app: azure-vote-back
     spec:
-      nodeSelector:
-        "beta.kubernetes.io/os": linux
+      #nodeSelector:
+        #"beta.kubernetes.io/os": linux
       containers:
       - name: azure-vote-back
         image: redis
@@ -55,7 +55,7 @@ spec:
         "beta.kubernetes.io/os": linux
       containers:
       - name: azure-vote-front
-        image: blackdentech/jenkins-course:latest
+        image: docker0rahul/jenkins_project:$BUILD_NUMBER
         ports:
         - containerPort: 80
         resources:
